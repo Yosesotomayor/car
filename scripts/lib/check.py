@@ -17,14 +17,17 @@ def check_paths():
     lib_path = script_dir / "lib"
     data_path = script_dir / "../data" 
     out_path = script_dir / "../out"
+    project_path = script_dir.parents[0]
 
     data_path = data_path.resolve()
     out_path = out_path.resolve()
+    project_path = project_path.resolve()
 
     checks = [
         check_path(lib_path, verbose=0),
         check_path(data_path, verbose=0),
         check_path(out_path, verbose=0),
+        check_path(project_path, verbose=0),
     ]
 
     if all(checks):
@@ -33,12 +36,14 @@ def check_paths():
         paths["lib_path"] = lib_path
         paths["data_path"] = data_path
         paths["out_path"] = out_path
+        paths["project_path"] = project_path
         return paths 
     else:
         print("Some paths are not loaded!")
         if not checks[0]: print(f"Missing: {lib_path}")
         if not checks[1]: print(f"Missing: {data_path}")
         if not checks[2]: print(f"Missing: {out_path}")
+        if not checks[3]: print(f"Missing: {project_path}")
 
 if __name__ == "__main__":
     check_paths()
